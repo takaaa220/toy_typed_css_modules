@@ -1,0 +1,16 @@
+{
+  "name": "simple-typed-modules-css",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "author": "takaaa220",
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^0.32.2"
+  }
+}
