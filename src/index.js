@@ -1,5 +1,7 @@
 import { readFileSync } from "fs";
 
+// MEMO: ASTを走査する方が良いだろう。
+
 /**
  * @param {string} fileName
  * @return {string}
