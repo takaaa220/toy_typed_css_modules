@@ -9,11 +9,12 @@
  */
 
 import { readFileSync, writeFileSync } from "fs";
-import { generateTypes } from "./core.mjs";
+import { extractClassNames } from "./core.mjs";
 import { glob } from "glob";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import chokidar from "chokidar";
+import { generateDtsFile } from "./output.mjs";
 
 /**
  * @param {string} pattern
@@ -29,58 +30,56 @@ export async function run(pattern, _options) {
   };
 
   if (options.watch) {
-    await watch(pattern);
+    await watch(pattern, generateDtsFile);
     return;
   } else {
-    await runAll(pattern);
+    await runAll(pattern, generateDtsFile);
   }
 }
 
 /**
  * @param {string} pattern
+ * @param {(classNames: string[], originalFileName: string) => void} output
  */
-async function watch(pattern) {
+async function watch(pattern, output) {
   if (!pattern) {
     throw new Error("pattern is required.");
   }
 
   const watcher = chokidar.watch(pattern);
-  watcher.on("change", (path) => {
-    runSingleFile(path);
-  });
 
-  watcher.on("add", (path) => {
-    runSingleFile(path);
-  });
+  watcher.on("change", runSingleFile(output));
+  watcher.on("add", runSingleFile(output));
 
   console.info(`Watching: ${pattern}`);
 }
 
 /**
  * @param {string} pattern
+ * @param {(classNames: string[], originalFileName: string) => void} output
  */
-async function runAll(pattern) {
+async function runAll(pattern, output) {
   if (!pattern) {
     throw new Error("pattern is required.");
   }
 
   const files = await glob(pattern);
 
-  files.forEach(runSingleFile);
+  files.forEach(runSingleFile(output));
 }
 
 /**
  * @param {string} fileName
+ * @param {(classNames: string[], originalFileName: string) => void} output
  */
-function runSingleFile(fileName) {
-  if (!fileName || !fileName.endsWith(".css")) return;
+function runSingleFile(output) {
+  return function (fileName) {
+    if (!fileName || !fileName.endsWith(".css")) return;
 
-  const modulesCss = readFileSync(fileName, "utf8");
+    const modulesCss = readFileSync(fileName, "utf8");
 
-  const dts = generateTypes(modulesCss);
-  const dtsFilePath = join(fileName + ".d.ts");
+    const classNames = extractClassNames(modulesCss);
 
-  writeFileSync(dtsFilePath, dts, { encoding: "utf8" });
-
-  console.info(`Generated: ${dtsFilePath}`);
+    output(classNames, fileName);
+  };
 }

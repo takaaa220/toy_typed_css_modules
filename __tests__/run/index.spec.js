@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { generateTypes } from "../../src/core.mjs";
+import { extractClassNames } from "../../src/core.mjs";
+import { generateTypeDeclaration } from "../../src/output.mjs";
 import { readFileSync, readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
 
-describe("generateTypes", () => {
+describe("extractClassNames", () => {
   const directories = readdirSync(__dirname).filter((name) =>
     statSync(join(__dirname, name)).isDirectory()
   );
@@ -14,7 +15,9 @@ describe("generateTypes", () => {
       const dtsFile = join(__dirname, dirname, "expected.d.ts");
 
       const cssString = readFileSync(cssFile, "utf8");
-      const actual = generateTypes(cssString);
+      const extractedClassNames = extractClassNames(cssString);
+      const actual = generateTypeDeclaration(extractedClassNames);
+
       const expected = readFileSync(dtsFile, "utf8");
 
       writeFileSync(join(__dirname, dirname, "actual.d.ts"), actual, {

@@ -19,7 +19,7 @@ export function generateTypes(cssString) {
  * @param {string} cssString
  * @return {string[]}
  */
-function extractClassNames(cssString) {
+export function extractClassNames(cssString) {
   const ast = parse(cssString);
 
   const classNames = new Set();
