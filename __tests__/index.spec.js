@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { generateTypes } from "../src";
+import { generateTypes } from "../src/generate.mjs";
 import { readFileSync, readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
 
@@ -16,11 +16,9 @@ describe("generateTypes", () => {
       const actual = generateTypes(cssFile);
       const expected = readFileSync(dtsFile, "utf8");
 
-      if (actual !== expected) {
-        writeFileSync(join(__dirname, dirname, "actual.d.ts"), actual, {
-          encoding: "utf8",
-        });
-      }
+      writeFileSync(join(__dirname, dirname, "actual.d.ts"), actual, {
+        encoding: "utf8",
+      });
 
       expect(actual).toBe(expected);
     });

@@ -1,0 +1,11 @@
+{
+  "name": "toy-typed-modules-css-example",
+  "version": "0.0.1",
+  "scripts": {
+    "codegen": "node ../src/cli.mjs ./src/**/*.css"
+  },
+  "author": "takaaa220",
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}

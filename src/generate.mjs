@@ -1,6 +1,10 @@
-import { readFileSync } from "fs";
+/**
+ * @typedef {import("css-tree")} parse
+ * @typedef {import("css-tree")} walk
+ */
 
-// MEMO: ASTを走査する方が良いだろう。
+import { readFileSync } from "fs";
+import { parse, walk } from "css-tree";
 
 /**
  * @param {string} fileName
@@ -14,14 +18,21 @@ export function generateTypes(fileName) {
 }
 
 /**
- * @param {string} file
+ * @param {string} cssString
  * @return {string[]}
  */
-function extractClassNames(file) {
-  const selectorRegex = /\.([a-zA-Z0-9_-]+)\s*\{/g;
-  const matches = [...file.matchAll(selectorRegex)];
+function extractClassNames(cssString) {
+  const ast = parse(cssString);
 
-  return matches.map((match) => match[1]);
+  const classNames = new Set();
+
+  walk(ast, (node) => {
+    if (node.type === "ClassSelector") {
+      classNames.add(node.name);
+    }
+  });
+
+  return [...classNames];
 }
 
 /**
