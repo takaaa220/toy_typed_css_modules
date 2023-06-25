@@ -42,10 +42,6 @@ export async function run(pattern, _options) {
  * @param {(classNames: string[], originalFileName: string) => void} output
  */
 async function watch(pattern, output) {
-  if (!pattern) {
-    throw new Error("pattern is required.");
-  }
-
   const watcher = chokidar.watch(pattern);
 
   watcher.on("change", runSingleFile(output));
@@ -59,10 +55,6 @@ async function watch(pattern, output) {
  * @param {(classNames: string[], originalFileName: string) => void} output
  */
 async function runAll(pattern, output) {
-  if (!pattern) {
-    throw new Error("pattern is required.");
-  }
-
   const files = await glob(pattern);
 
   files.forEach(runSingleFile(output));
