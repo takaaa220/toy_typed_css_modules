@@ -1,5 +1,5 @@
 import { it, describe, expect } from "vitest";
-import { run } from "../../src/run.mjs";
+import { run } from "../src/run.mjs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { readFileSync } from "fs";

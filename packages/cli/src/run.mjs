@@ -9,12 +9,12 @@
  */
 
 import { readFileSync, writeFileSync } from "fs";
-import { extractClassNames } from "./core.mjs";
 import { glob } from "glob";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import chokidar from "chokidar";
 import { generateDtsFile } from "./output.mjs";
+import { extractClassNames } from "../../core/src/index.mjs";
 
 /**
  * @param {string} pattern

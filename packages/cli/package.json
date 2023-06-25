@@ -1,0 +1,14 @@
+{
+  "name": "@toy-typed-css-modules/cli",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@toy-typed-css-modules/core": "workspace:*",
+    "chokidar": "3.5.3",
+    "glob": "10.3.0",
+    "yargs": "17.7.2"
+  }
+}

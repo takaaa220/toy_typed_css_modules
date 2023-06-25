@@ -1,4 +1,1 @@
 node_modules
-
-__tests__/generate/**/actual.d.ts
-__tests__/cli/test_src/**/*.module.css.d.ts

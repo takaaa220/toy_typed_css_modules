@@ -1,5 +1,5 @@
 import { describe, expect } from "vitest";
-import { extractClassNames } from "../../src/core.mjs";
+import { extractClassNames } from "./extractClassNames.mjs";
 import { it } from "vitest";
 
 const cssString = `

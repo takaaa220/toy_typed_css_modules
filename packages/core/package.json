@@ -1,0 +1,11 @@
+{
+  "name": "@toy-typed-css-modules/core",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "css-tree": "2.3.1"
+  }
+}
