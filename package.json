@@ -14,7 +14,9 @@
     "vitest": "^0.32.2"
   },
   "dependencies": {
+    "chokidar": "^3.5.3",
     "css-tree": "^2.3.1",
-    "glob": "^10.3.0"
+    "glob": "^10.3.0",
+    "yargs": "^17.7.2"
   }
 }
