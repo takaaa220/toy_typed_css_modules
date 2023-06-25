@@ -3,16 +3,14 @@
  * @typedef {import("css-tree")} walk
  */
 
-import { readFileSync } from "fs";
 import { parse, walk } from "css-tree";
 
 /**
- * @param {string} fileName
+ * @param {string} cssString
  * @return {string}
  */
-export function generateTypes(fileName) {
-  const modulesCss = readFileSync(fileName, "utf8");
-  const classNames = extractClassNames(modulesCss);
+export function generateTypes(cssString) {
+  const classNames = extractClassNames(cssString);
 
   return generateTypeDeclaration(classNames);
 }
